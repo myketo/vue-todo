@@ -24,12 +24,13 @@ export default {
 
 *, * > * {
   box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 #app {
   font-size: 18px;
-  font-family: 'Josefin Sans', sans-serif;
   color: var(--black);
+  font-family: 'Josefin Sans', sans-serif;
 
   display: flex;
   justify-content: center;

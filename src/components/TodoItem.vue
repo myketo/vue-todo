@@ -1,12 +1,13 @@
 <template>
 	<div class="todo-item" :class="{ 'item-new': isNew }">
 		<todo-checkbox></todo-checkbox>
-		<span class="text" :class="{ 'text-new': isNew }">{{ text }}</span>
+		<todo-input :value="text" :disabled="!isNew" :class="{ 'text-new': isNew }"></todo-input>
 	</div>
 </template>
 
 <script>
 import TodoCheckbox from "./TodoCheckbox.vue"
+import TodoInput from "./TodoInput.vue"
 
 export default {
 	name: 'TodoItem',
@@ -23,6 +24,7 @@ export default {
 	},
 	components: {
 		TodoCheckbox,
+		TodoInput,
 	}
 }
 </script>
@@ -30,25 +32,23 @@ export default {
 <style>
 	div.todo-item {
 		background: white;
-		padding: 22px;
-		border-radius: 6px;
+		padding: 21px;
 		display: inline-flex;
 		gap: 20px;
 		align-items: center;
 		border-bottom: 1px solid var(--light-grey);
 	}
 
+	div.todo-item:first-of-type {
+		border-radius: 6px 6px 0 0;
+	}
+
 	div.todo-item.item-new {
 		margin-bottom: 25px;
+		border-radius: 6px;
 	}
 
 	div.todo-item span.text {
 		margin-bottom: -3px;
 	}
-
-	div.todo-item span.text-new {
-		color: var(--dark-grey);
-	}
 </style>
-
-<!-- 0px 0px 40px 10px hsl(235deg 19% 35% / 35%) -->
