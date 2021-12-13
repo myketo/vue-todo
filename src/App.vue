@@ -18,8 +18,10 @@ export default {
   --bright-blue: hsl(220, 98%, 61%);
   --check-background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
   --black: hsl(235, 19%, 35%);
+  --grey: hsl(236, 9%, 61%);
   --dark-grey: hsl(236, 9%, 61%);
   --light-grey: hsl(236, 33%, 92%);
+  --light-blue: hsl(220, 98%, 61%);
 }
 
 *, * > * {

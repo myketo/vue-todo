@@ -1,7 +1,7 @@
 <template>
 	<div class="todo-item" :class="{ 'item-new': isNew }">
-		<todo-checkbox></todo-checkbox>
-		<todo-input :value="text" :disabled="!isNew" :class="{ 'text-new': isNew }"></todo-input>
+		<todo-checkbox @toggled="toggleText"></todo-checkbox>
+		<todo-input :value="text" :disabled="!isNew" :class="{ 'text-new': isNew, 'text-crossed': isCrossed }"></todo-input>
 	</div>
 </template>
 
@@ -17,14 +17,20 @@ export default {
 			default: false,
 		}
 	},
-	data() {
-		return {
-			text: 'Create a new todo...',
-		}
-	},
 	components: {
 		TodoCheckbox,
 		TodoInput,
+	},
+	data() {
+		return {
+			text: 'Create a new todo...',
+			isCrossed: false,
+		}
+	},
+	methods: {
+		toggleText(isActive) {
+			this.isCrossed = isActive 
+		}
 	}
 }
 </script>

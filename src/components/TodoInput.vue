@@ -29,4 +29,10 @@ export default {
 	input[type=text]:focus {
 		outline-width: 0;
 	}
+
+	input[type=text].text-crossed,
+	input[type=text].text-crossed::placeholder {
+		text-decoration: line-through;
+		color: var(--grey);
+	}
 </style>

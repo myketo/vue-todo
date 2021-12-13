@@ -1,6 +1,12 @@
 <template>
 	<div class="todo-list">
-		<h1>{{ title }}</h1>
+		<div class="todo-header">
+			<h1>{{ title }}</h1>
+			
+			<div class="theme-icon">
+				<img @click="toggleTheme" :src="iconSource">
+			</div>
+		</div>
 
 		<todo-item is-new></todo-item>
 
@@ -11,12 +17,15 @@
 			<todo-item></todo-item>
 			<todo-item></todo-item>
 			<todo-item></todo-item>
+
+			<todo-footer></todo-footer>
 		</div>
 	</div>
 </template>
 
 <script>
 import TodoItem from "./TodoItem.vue"
+import TodoFooter from "./TodoFooter.vue"
 
 export default {
 	name: 'TodoList',
@@ -24,7 +33,23 @@ export default {
 		title: String,
 	},
 	components: {
-		TodoItem
+		TodoItem,
+		TodoFooter,
+	},
+	data() {
+		return {
+			iconType: 'sun',
+		}
+	},
+	computed: {
+		iconSource() {
+			return require('../assets/images/icon-' + this.iconType + '.svg')
+		},
+	},
+	methods: {
+		toggleTheme() {
+			this.iconType = this.iconType == 'sun' ? 'moon' : 'sun'
+		}
 	}
 }
 </script>
@@ -51,5 +76,14 @@ export default {
 		font-size: revert;
 		font-weight: revert;
 		margin-bottom: 41px;
+	}
+
+	div.todo-header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	div.todo-header .theme-icon img {
+		height: 30px;
 	}
 </style>

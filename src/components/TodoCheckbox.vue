@@ -8,6 +8,9 @@
 <script>
 export default {
 	name: 'TodoCheckbox',
+	emits: [
+		'toggled'
+	],
 	data() {
 		return {
 			isNew: this.$parent.isNew,
@@ -18,6 +21,7 @@ export default {
 	methods: {
 		toggle() {
 			this.isActive = !this.isActive
+			this.$emit('toggled', this.isActive)
 		}
 	}
 }
