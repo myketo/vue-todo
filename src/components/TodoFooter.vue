@@ -1,6 +1,6 @@
 <template>
 	<div class="todo-footer">
-		<span>5 items left</span>
+		<span>{{ count }} items left</span>
 
 		<div class="buttons">
 			<span class="active">All</span>
@@ -15,7 +15,9 @@
 <script>
 export default {
 	name: 'TodoFooter',
-
+	props: {
+		count: String,
+	},
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-	<input type="text" :placeholder="value">
+	<input type="text" v-model="newValue" :placeholder="value" @keyup.enter="saveItem">
 </template>
 
 
@@ -8,6 +8,18 @@ export default {
 	name: 'TodoInput',
 	props: {
 		value: String,
+	},
+	data() {
+		return {
+			newValue: ''
+		}
+	},
+	methods: {
+		saveItem() {
+			this.$parent.$emit("newItem", this.newValue)
+
+			this.newValue = ''
+		}
 	}
 }
 </script>
@@ -33,6 +45,6 @@ export default {
 	input[type=text].text-crossed,
 	input[type=text].text-crossed::placeholder {
 		text-decoration: line-through;
-		color: var(--grey);
+		color: var(--mid-grey);
 	}
 </style>

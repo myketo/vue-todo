@@ -8,8 +8,8 @@ import TodoList from './components/TodoList.vue'
 export default {
   name: 'App',
   components: {
-    TodoList
-  }
+    TodoList,
+  },
 }
 </script>
 
@@ -21,6 +21,7 @@ export default {
   --grey: hsl(236, 9%, 61%);
   --dark-grey: hsl(236, 9%, 61%);
   --light-grey: hsl(236, 33%, 92%);
+  --mid-grey: hsl(233, 11%, 84%);
   --light-blue: hsl(220, 98%, 61%);
 }
 

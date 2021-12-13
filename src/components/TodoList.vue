@@ -8,17 +8,15 @@
 			</div>
 		</div>
 
-		<todo-item is-new></todo-item>
+		<todo-item is-new @newItem="newItem"></todo-item>
 
 		<div class="items-container">
-			<todo-item></todo-item>
-			<todo-item></todo-item>
-			<todo-item></todo-item>
-			<todo-item></todo-item>
-			<todo-item></todo-item>
-			<todo-item></todo-item>
+			<todo-item 
+				v-for="item in items" 
+				:key="item.text"
+				:text="item"></todo-item>
 
-			<todo-footer></todo-footer>
+			<todo-footer :count="items.length"></todo-footer>
 		</div>
 	</div>
 </template>
@@ -39,6 +37,7 @@ export default {
 	data() {
 		return {
 			iconType: 'sun',
+			items: [],
 		}
 	},
 	computed: {
@@ -49,8 +48,20 @@ export default {
 	methods: {
 		toggleTheme() {
 			this.iconType = this.iconType == 'sun' ? 'moon' : 'sun'
+		},
+
+		newItem(newValue) {
+			this.items.push(newValue)
+
+			const parsed = JSON.stringify(this.items)
+			localStorage.setItem('items', parsed)
 		}
-	}
+	},
+	mounted() {
+		if (localStorage.getItem('items')) {
+			this.items = JSON.parse(localStorage.getItem('items'))
+		}
+	},
 }
 </script>
 

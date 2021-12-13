@@ -1,7 +1,11 @@
 <template>
 	<div class="todo-item" :class="{ 'item-new': isNew }">
 		<todo-checkbox @toggled="toggleText"></todo-checkbox>
-		<todo-input :value="text" :disabled="!isNew" :class="{ 'text-new': isNew, 'text-crossed': isCrossed }"></todo-input>
+		<todo-input 
+			:value="text" 
+			:disabled="!isNew" 
+			:class="{ 'text-new': isNew, 'text-crossed': isCrossed }"
+		></todo-input>
 	</div>
 </template>
 
@@ -15,6 +19,10 @@ export default {
 		isNew: {
 			type: Boolean,
 			default: false,
+		},
+		text: {
+			type: String,
+			default: 'Create a new todo...',
 		}
 	},
 	components: {
@@ -23,7 +31,6 @@ export default {
 	},
 	data() {
 		return {
-			text: 'Create a new todo...',
 			isCrossed: false,
 		}
 	},
