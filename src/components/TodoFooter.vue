@@ -42,6 +42,8 @@ export default {
 
 			this.buttons[activeIndex].active = false
 			this.buttons[index].active = true
+
+			this.$parent.button = this.buttons[index].text.toLowerCase()
 		},
 	},
 	components: {

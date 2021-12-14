@@ -12,9 +12,10 @@
 
 		<div class="items-container">
 			<todo-item 
-				v-for="item in items"
-				:id="item.id"
+				v-for="(item, index) in items"
 				:key="item.id"
+				v-show="isFiltered(index)"
+				:id="item.id"
 				:text="item.text"
 				:completed="item.completed"
 				@statusChanged="updateItem"
@@ -50,6 +51,7 @@ export default {
 		return {
 			iconType: 'moon',
 			items: [],
+			button: 'all',
 		}
 	},
 	
@@ -99,6 +101,17 @@ export default {
 				return !item.completed
 			})
 			this.setLocalStorageItems()
+		},
+
+		isFiltered(index) {
+			switch(this.button){
+				case 'all':
+					return true
+				case 'active':
+					return (this.items[index].completed == false)
+				case 'completed':
+					return (this.items[index].completed == true)
+			}
 		},
 
 		setLocalStorageItems() {
