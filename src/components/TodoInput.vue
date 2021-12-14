@@ -1,5 +1,5 @@
 <template>
-	<input type="text" v-model="newValue" :placeholder="value" @keyup.enter="saveItem">
+	<input type="text" v-model="newText" :placeholder="value" @keyup.enter="saveItem">
 </template>
 
 
@@ -11,14 +11,14 @@ export default {
 	},
 	data() {
 		return {
-			newValue: ''
+			newText: '',
 		}
 	},
 	methods: {
 		saveItem() {
-			this.$parent.$emit("newItem", this.newValue)
+			this.$parent.$emit("newItem", this.newText)
 
-			this.newValue = ''
+			this.newText = ''
 		}
 	}
 }

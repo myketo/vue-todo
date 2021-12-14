@@ -9,13 +9,13 @@
 export default {
 	name: 'TodoCheckbox',
 	emits: [
-		'toggled'
+		'toggled',
 	],
 	data() {
 		return {
 			isNew: this.$parent.isNew,
 			inputId: 'input-1',
-			isActive: false,
+			isActive: this.$parent.checked,
 		}
 	}, 
 	methods: {

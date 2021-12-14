@@ -16,7 +16,7 @@
 export default {
 	name: 'TodoFooter',
 	props: {
-		count: String,
+		count: Number,
 	},
 }
 </script>

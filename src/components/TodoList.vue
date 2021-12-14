@@ -12,9 +12,12 @@
 
 		<div class="items-container">
 			<todo-item 
-				v-for="item in items" 
-				:key="item.text"
-				:text="item"></todo-item>
+				v-for="item in items"
+				:id="item.id"
+				:key="item.id"
+				:text="item.text"
+				:checked="item.checked"
+				@statusChanged="updateItem"></todo-item>
 
 			<todo-footer :count="items.length"></todo-footer>
 		</div>
@@ -27,36 +30,58 @@ import TodoFooter from "./TodoFooter.vue"
 
 export default {
 	name: 'TodoList',
+	
 	props: {
 		title: String,
 	},
+
 	components: {
 		TodoItem,
 		TodoFooter,
 	},
+
 	data() {
 		return {
 			iconType: 'sun',
 			items: [],
 		}
 	},
+	
 	computed: {
 		iconSource() {
 			return require('../assets/images/icon-' + this.iconType + '.svg')
 		},
 	},
+
 	methods: {
 		toggleTheme() {
 			this.iconType = this.iconType == 'sun' ? 'moon' : 'sun'
 		},
 
-		newItem(newValue) {
-			this.items.push(newValue)
+		newItem(newText) {
+			this.items.push(
+				{
+					id: this.items.length,
+					text: newText,
+					checked: false,
+				}
+			)
 
+			const parsed = JSON.stringify(this.items)
+			localStorage.setItem('items', parsed)
+		},
+
+		updateItem(updItem) {
+			const index = this.items.findIndex(item => {
+				return (updItem.id == item.id)
+			})
+			this.items[index].checked = updItem.checked
+			
 			const parsed = JSON.stringify(this.items)
 			localStorage.setItem('items', parsed)
 		}
 	},
+
 	mounted() {
 		if (localStorage.getItem('items')) {
 			this.items = JSON.parse(localStorage.getItem('items'))
