@@ -38,7 +38,7 @@ export default {
 		id: {
 			type: Number,
 		},
-		checked: {
+		completed: {
 			type: Boolean,
 			default: false,
 		}
@@ -50,14 +50,14 @@ export default {
 	},
 	data() {
 		return {
-			isCompleted: this.checked,
+			isCompleted: this.completed,
 			showRemove: false,
 		}
 	},
 	methods: {
 		toggleComplete(isActive) {
 			this.isCompleted = isActive
-			this.$emit('statusChanged', {id: this.id, checked: isActive})
+			this.$emit('statusChanged', {id: this.id, completed: isActive})
 		},
 	}
 }
@@ -66,7 +66,7 @@ export default {
 <style>
 	div.todo-item {
 		background: white;
-		padding: 21px;
+		padding: 20px;
 		display: inline-flex;
 		gap: 20px;
 		align-items: center;

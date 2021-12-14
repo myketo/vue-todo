@@ -2,22 +2,51 @@
 	<div class="todo-footer">
 		<span>{{ count }} items left</span>
 
-		<div class="buttons">
-			<span class="active">All</span>
-			<span>Active</span>
-			<span>Completed</span>
+		<div>
+			<todo-button 
+				:key="index" 
+				v-for="(button, index) in buttons"
+				@click="setActive(index)"
+				:active="button.active"
+			>
+				{{ button.text }}
+			</todo-button>
 		</div>
 
-		<span>Clear Completed</span>
+		<todo-button @click="$emit('clearCompleted')">Clear Completed</todo-button>
 	</div>
 </template>
 
 <script>
+import TodoButton from './TodoButton'
+
 export default {
 	name: 'TodoFooter',
 	props: {
 		count: Number,
 	},
+	data() {
+		return {
+			buttons: [
+				{text: 'All', active: true},
+				{text: 'Active'},
+				{text: 'Completed'},
+			],
+		}
+	},
+	methods: {
+		setActive(index) {
+			const activeIndex = this.buttons.findIndex(button => {
+				return (button.active == true)
+			})
+
+			this.buttons[activeIndex].active = false
+			this.buttons[index].active = true
+		},
+	},
+	components: {
+		TodoButton,
+	}
 }
 </script>
 
@@ -30,14 +59,5 @@ export default {
 		background: white;
 		padding: 20px;
 		border-radius: 0 0 6px 6px;
-	}
-
-	.todo-footer .buttons span {
-		font-weight: bold;
-		padding: 12px;
-	}
-
-	.todo-footer .buttons span.active {
-		color: var(--light-blue);
 	}
 </style>

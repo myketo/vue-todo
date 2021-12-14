@@ -15,7 +15,7 @@ export default {
 		return {
 			isNew: this.$parent.isNew,
 			inputId: 'input-1',
-			isActive: this.$parent.checked,
+			isActive: this.$parent.completed,
 		}
 	}, 
 	methods: {

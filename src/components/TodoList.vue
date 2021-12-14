@@ -16,7 +16,7 @@
 				:id="item.id"
 				:key="item.id"
 				:text="item.text"
-				:checked="item.checked"
+				:completed="item.completed"
 				@statusChanged="updateItem"
 				@removeItem="removeItem"
 			></todo-item>
@@ -25,7 +25,7 @@
 				<p>No items on list. Add a new item!</p>
 			</div>
 
-			<todo-footer :count="items.length"></todo-footer>
+			<todo-footer :count="items.length" @clearCompleted="clearCompleted"></todo-footer>
 		</div>
 	</div>
 </template>
@@ -69,7 +69,7 @@ export default {
 				{
 					id: this.items.length,
 					text: newText,
-					checked: false,
+					completed: false,
 				}
 			)
 
@@ -80,7 +80,7 @@ export default {
 			const index = this.items.findIndex(item => {
 				return (updItem.id == item.id)
 			})
-			this.items[index].checked = updItem.checked
+			this.items[index].completed = updItem.completed
 
 			this.setLocalStorageItems()
 		},
@@ -91,6 +91,13 @@ export default {
 			})
 			this.items.splice(index, 1)
 
+			this.setLocalStorageItems()
+		},
+
+		clearCompleted() {
+			this.items = this.items.filter(item => {
+				return !item.completed
+			})
 			this.setLocalStorageItems()
 		},
 
