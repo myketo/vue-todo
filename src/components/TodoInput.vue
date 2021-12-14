@@ -32,6 +32,7 @@ export default {
 		color: var(--black);
 		border: none;
 		background-color: white;
+		caret-color: var(--light-blue);
 	}
 
 	input[type=text].text-new::placeholder {

@@ -1,17 +1,28 @@
 <template>
-	<div class="todo-item" :class="{ 'item-new': isNew }">
+	<div 
+		class="todo-item" 
+		:class="{ 'item-new': isNew }" 
+		@mouseenter="showRemove = !showRemove"
+		@mouseleave="showRemove = !showRemove"
+	>
 		<todo-checkbox @toggled="toggleComplete"></todo-checkbox>
 		<todo-input 
 			:value="text" 
 			:disabled="!isNew" 
 			:class="{ 'text-new': isNew, 'text-crossed': isCompleted }"
 		></todo-input>
+		<todo-remove 
+			v-if="!isNew" 
+			v-show="showRemove" 
+			@removeItem="$emit('removeItem', this.id)"
+		></todo-remove>
 	</div>
 </template>
 
 <script>
 import TodoCheckbox from "./TodoCheckbox.vue"
 import TodoInput from "./TodoInput.vue"
+import TodoRemove from "./TodoRemove.vue"
 
 export default {
 	name: 'TodoItem',
@@ -35,17 +46,19 @@ export default {
 	components: {
 		TodoCheckbox,
 		TodoInput,
+		TodoRemove,
 	},
 	data() {
 		return {
 			isCompleted: this.checked,
+			showRemove: false,
 		}
 	},
 	methods: {
 		toggleComplete(isActive) {
 			this.isCompleted = isActive
 			this.$emit('statusChanged', {id: this.id, checked: isActive})
-		}
+		},
 	}
 }
 </script>

@@ -17,7 +17,13 @@
 				:key="item.id"
 				:text="item.text"
 				:checked="item.checked"
-				@statusChanged="updateItem"></todo-item>
+				@statusChanged="updateItem"
+				@removeItem="removeItem"
+			></todo-item>
+
+			<div v-if="!this.items.length" class="no-items">
+				<p>No items on list. Add a new item!</p>
+			</div>
 
 			<todo-footer :count="items.length"></todo-footer>
 		</div>
@@ -42,7 +48,7 @@ export default {
 
 	data() {
 		return {
-			iconType: 'sun',
+			iconType: 'moon',
 			items: [],
 		}
 	},
@@ -67,8 +73,7 @@ export default {
 				}
 			)
 
-			const parsed = JSON.stringify(this.items)
-			localStorage.setItem('items', parsed)
+			this.setLocalStorageItems()
 		},
 
 		updateItem(updItem) {
@@ -76,10 +81,23 @@ export default {
 				return (updItem.id == item.id)
 			})
 			this.items[index].checked = updItem.checked
-			
+
+			this.setLocalStorageItems()
+		},
+
+		removeItem(id) {
+			const index = this.items.findIndex(item => {
+				return (id == item.id)
+			})
+			this.items.splice(index, 1)
+
+			this.setLocalStorageItems()
+		},
+
+		setLocalStorageItems() {
 			const parsed = JSON.stringify(this.items)
 			localStorage.setItem('items', parsed)
-		}
+		},
 	},
 
 	mounted() {
@@ -112,6 +130,17 @@ export default {
 		font-size: revert;
 		font-weight: revert;
 		margin-bottom: 41px;
+	}
+
+	div.todo-list .no-items {
+		background: white;
+		padding: 21px;
+		gap: 20px;
+		align-items: center;
+		border-bottom: 1px solid var(--light-grey);
+		color: var(--grey);
+		text-align: center;
+		border-radius: 6px 6px 0 0;
 	}
 
 	div.todo-header {
