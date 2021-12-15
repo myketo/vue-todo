@@ -16,7 +16,10 @@ export default {
 	},
 	methods: {
 		saveItem() {
-			this.$parent.$emit("newItem", this.newText)
+			this.$parent.$emit(
+				"newItem", 
+				{text: this.newText, completed: this.$parent.isCompleted}
+			)
 
 			this.newText = ''
 		}

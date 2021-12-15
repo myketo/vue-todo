@@ -22,11 +22,14 @@
 				@removeItem="removeItem"
 			></todo-item>
 
-			<div v-if="!this.items.length" class="no-items">
-				<p>No items on list. Add a new item!</p>
+			<div v-if="countItems() == 0" class="no-items">
+				<p>
+					No {{ button == 'all' ? '' : ' ' + button}} items on list. 
+					Add a new item!
+				</p>
 			</div>
 
-			<todo-footer :count="items.length" @clearCompleted="clearCompleted"></todo-footer>
+			<todo-footer :count="countItems()" @clearCompleted="clearCompleted"></todo-footer>
 		</div>
 	</div>
 </template>
@@ -66,12 +69,12 @@ export default {
 			this.iconType = this.iconType == 'sun' ? 'moon' : 'sun'
 		},
 
-		newItem(newText) {
+		newItem(data) {
 			this.items.push(
 				{
 					id: this.items.length,
-					text: newText,
-					completed: false,
+					text: data.text,
+					completed: data.completed,
 				}
 			)
 
@@ -111,6 +114,28 @@ export default {
 					return (this.items[index].completed == false)
 				case 'completed':
 					return (this.items[index].completed == true)
+			}
+		},
+
+		countItems() {
+			if (this.button == 'all') {
+				return this.items.length
+			}
+
+			if (this.button == 'active') {
+				const active = this.items.filter(item => {
+					return item.completed == false
+				})
+
+				return active.length
+			}
+
+			if (this.button == 'completed') {
+				const completed = this.items.filter(item => {
+					return item.completed == true
+				})
+
+				return completed.length
 			}
 		},
 

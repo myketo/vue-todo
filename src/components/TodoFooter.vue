@@ -1,6 +1,6 @@
 <template>
 	<div class="todo-footer">
-		<span>{{ count }} items left</span>
+		<span>{{ count }} item{{ $parent.countItems() != 1 ? 's' : '' }} left</span>
 
 		<div>
 			<todo-button 
