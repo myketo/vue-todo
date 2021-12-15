@@ -62,4 +62,9 @@ export default {
 		padding: 20px;
 		border-radius: 0 0 6px 6px;
 	}
+
+	.dark .todo-footer {
+		background: var(--darkest-blue);
+		color: var(--dark-grey-blue);
+	}
 </style>

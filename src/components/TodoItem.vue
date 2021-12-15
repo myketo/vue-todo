@@ -80,9 +80,23 @@ export default {
 	div.todo-item.item-new {
 		margin-bottom: 25px;
 		border-radius: 6px;
+		border-bottom: none;
 	}
 
 	div.todo-item span.text {
 		margin-bottom: -3px;
+	}
+
+	.dark div.todo-item {
+		background-color: hsl(235, 24%, 19%);
+		border-bottom: 1px solid var(--dark-blue);
+	}
+
+	.dark div.todo-item.item-new {
+		border-bottom: none;
+	}
+
+	.dark div.todo-item span.text {
+		color: var(--light-grey-blue);
 	}
 </style>

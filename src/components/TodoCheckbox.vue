@@ -65,4 +65,14 @@ export default {
 	div.todo-checkbox input {
 		display: none;
 	}
+
+	.dark div.todo-checkbox:not(.active):hover {
+		background-image: 
+			linear-gradient(var(--darkest-blue), var(--darkest-blue)), 
+			linear-gradient(0.35turn, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+	}
+
+	.dark div.todo-checkbox {
+		border: 1px solid var(--dark-blue);
+	}	
 </style>

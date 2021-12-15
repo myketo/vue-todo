@@ -36,6 +36,7 @@ export default {
 		border: none;
 		background-color: white;
 		caret-color: var(--light-blue);
+		margin-top: 3px;
 	}
 
 	input[type=text].text-new::placeholder {
@@ -50,5 +51,16 @@ export default {
 	input[type=text].text-crossed::placeholder {
 		text-decoration: line-through;
 		color: var(--mid-grey);
+	}
+
+	.dark input[type=text],
+	.dark input[type=text]:not(.text-new)::placeholder {
+		background-color: var(--darkest-blue);
+		color: var(--light-grey-blue);
+	}
+
+	.dark input[type=text].text-crossed,
+	.dark input[type=text].text-crossed::placeholder {
+		color: var(--dark-blue);
 	}
 </style>

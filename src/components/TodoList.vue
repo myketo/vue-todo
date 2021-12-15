@@ -45,6 +45,10 @@ export default {
 		title: String,
 	},
 
+	emits: [
+		'changeTheme',
+	],
+
 	components: {
 		TodoItem,
 		TodoFooter,
@@ -52,9 +56,9 @@ export default {
 
 	data() {
 		return {
-			iconType: 'moon',
 			items: [],
 			button: 'all',
+			iconType: 'moon',
 		}
 	},
 	
@@ -66,7 +70,8 @@ export default {
 
 	methods: {
 		toggleTheme() {
-			this.iconType = this.iconType == 'sun' ? 'moon' : 'sun'
+			this.iconType = this.iconType === 'moon' ? 'sun' : 'moon'
+			this.$emit('changeTheme')
 		},
 
 		newItem(data) {
@@ -149,6 +154,10 @@ export default {
 		if (localStorage.getItem('items')) {
 			this.items = JSON.parse(localStorage.getItem('items'))
 		}
+
+		if (localStorage.darkTheme) {
+			this.iconType = JSON.parse(localStorage.darkTheme) === true ? 'sun' : 'moon'
+		}
 	},
 }
 </script>
@@ -194,6 +203,21 @@ export default {
 	}
 
 	div.todo-header .theme-icon img {
-		height: 30px;
+		height: 27px;
+		cursor: pointer;
+	}
+
+	.item-list-move {
+		transition: transform 0.8s ease;
+	}
+
+	.dark div.todo-list div.items-container {
+		box-shadow: 0px 0px 40px 10px hsl(0deg 0% 0% / 35%);
+	}
+
+	.dark div.todo-list .no-items {
+		background-color: var(--darkest-blue);
+		color: var(--light-grey-blue);
+		border-bottom: 1px solid var(--dark-blue);
 	}
 </style>

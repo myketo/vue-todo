@@ -38,4 +38,12 @@ export default {
 	button.active {
 		color: var(--light-blue);
 	}
+
+	.dark button:not(.active) {
+		color: var(--dark-grey-blue);
+	}
+
+	.dark button:not(.active):hover {
+		color: white;
+	}
 </style>
