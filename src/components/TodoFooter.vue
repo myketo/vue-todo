@@ -1,7 +1,6 @@
 <template>
 	<div class="todo-footer" :class="{detached: detached}">
-		<span v-if="!detached">{{ count }} item{{ $parent.countItems() != 1 ? 's' : '' }} left</span>
-
+		<span v-if="!detached">{{ count }} item{{ count != 1 ? 's' : '' }} left</span>
 		<div v-if="!$isMobile() || detached">
 			<todo-button 
 				:key="index" 
@@ -44,7 +43,7 @@ export default {
 			this.buttons[activeIndex].active = false
 			this.buttons[index].active = true
 
-			this.$parent.button = this.buttons[index].text.toLowerCase()
+			this.$emit('buttonChange', this.buttons[index].text.toLowerCase())
 		},
 	},
 	components: {
@@ -68,11 +67,16 @@ export default {
 		margin-top: 15px;
 		border-radius: 6px;
 		justify-content: center;
+		box-shadow: 0px 0px 40px 10px hsl(235deg 19% 35% / 35%);
 	}
 
 	.dark .todo-footer {
 		background: var(--darkest-blue);
 		color: var(--dark-blue);
+	}
+
+	.dark .todo-footer.detached {
+		box-shadow: 0px 0px 40px 10px hsl(0deg 0% 0% / 35%);
 	}
 
 	@media (max-width: 767px) {

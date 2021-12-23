@@ -10,35 +10,50 @@
 
 		<todo-item is-new @newItem="newItem"></todo-item>
 
-		<div class="items-container">
-			<todo-item 
-				v-for="(item, index) in items"
-				:key="item.id"
-				v-show="isFiltered(index)"
-				:id="item.id"
-				:text="item.text"
-				:completed="item.completed"
-				@statusChanged="updateItem"
-				@removeItem="removeItem"
-			></todo-item>
+		<draggable v-model="items" item-key="id" class="items-container">
+			<template #item="{element, index}">
+				<todo-item 
+					v-show="isFiltered(index)"
+					:id="element.id"
+					:text="element.text"
+					:completed="element.completed"
+					@statusChanged="updateItem"
+					@removeItem="removeItem"
+				></todo-item>
+			</template>
 
-			<div v-if="countItems() == 0" class="no-items">
-				<p>
-					No {{ button == 'all' ? '' : ' ' + button}} items on list. 
-					Add a new item!
-				</p>
-			</div>
+			<template #footer>
+				<div v-if="countItems() == 0" class="no-items">
+					<p>
+						No {{ button == 'all' ? '' : ' ' + button}} items on list. 
+						Add a new item!
+					</p>
+				</div>
 
-			<todo-footer :count="countItems()" @clearCompleted="clearCompleted"></todo-footer>
-		</div>
+				<todo-footer 
+					:count="countItems()" 
+					@clearCompleted="clearCompleted" 
+					@buttonChange="buttonChange"
+				></todo-footer>
+			</template>
+		</draggable>
 
-		<todo-footer v-if="$isMobile()" :count="countItems()" @clearCompleted="clearCompleted" detached></todo-footer>
+		<todo-footer 
+			v-if="$isMobile()" 
+			:count="countItems()" 
+			@clearCompleted="clearCompleted" 
+			@buttonChange="buttonChange" 
+			detached
+		></todo-footer>
+
+		<p class="drag-drop-info" v-show="countItems() > 1">Drag and drop to reorder list</p>
 	</div>
 </template>
 
 <script>
 import TodoItem from "./TodoItem.vue"
 import TodoFooter from "./TodoFooter.vue"
+import draggable from "vuedraggable"
 
 export default {
 	name: 'TodoList',
@@ -54,6 +69,7 @@ export default {
 	components: {
 		TodoItem,
 		TodoFooter,
+		draggable,
 	},
 
 	data() {
@@ -71,6 +87,10 @@ export default {
 	},
 
 	methods: {
+		buttonChange(button) {
+			this.button = button
+		},
+		
 		toggleTheme() {
 			this.iconType = this.iconType === 'moon' ? 'sun' : 'moon'
 			this.$emit('changeTheme')
@@ -211,6 +231,16 @@ export default {
 
 	.item-list-move {
 		transition: transform 0.8s ease;
+	}
+
+	.drag-drop-info {
+		text-align: center;
+		margin-top: 60px;
+		color: var(--dark-grey);
+	}
+
+	.dark .drag-drop-info {
+		color: var(--dark-blue);
 	}
 
 	.dark div.todo-list div.items-container {
