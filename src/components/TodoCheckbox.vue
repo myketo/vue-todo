@@ -74,5 +74,20 @@ export default {
 
 	.dark div.todo-checkbox {
 		border: 1px solid var(--dark-blue);
-	}	
+	}
+
+	@media (max-width: 767px) {
+		div.todo-checkbox {
+			width: 20px;
+			height: 20px;
+			min-width: 20px;
+			min-height: 20px;
+		}
+
+		div.todo-checkbox.active:after {
+			top: 4px;
+			left: 4px;
+			transform: scale(0.8);
+		}
+	}
 </style>

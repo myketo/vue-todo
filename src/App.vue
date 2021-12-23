@@ -75,4 +75,15 @@ export default {
 	background-color: hsl(235, 21%, 11%);
 	background-image: url('./assets/images/bg-desktop-dark.jpg');
 }
+
+@media (max-width: 767px) {
+	.app-container {
+		background-image: url('./assets/images/bg-mobile-light.jpg');
+		font-size: 11px;
+	}
+
+	.dark {
+		background-image: url('./assets/images/bg-mobile-dark.jpg');
+	}
+}
 </style>

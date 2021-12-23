@@ -2,15 +2,17 @@
 	<div 
 		class="todo-item" 
 		:class="{ 'item-new': isNew }" 
-		@mouseenter="showRemove = !showRemove"
-		@mouseleave="showRemove = !showRemove"
+		@mouseenter="toggleShowRemove"
+		@mouseleave="toggleShowRemove"
 	>
 		<todo-checkbox @toggled="toggleComplete"></todo-checkbox>
+
 		<todo-input 
 			:value="text" 
 			:disabled="!isNew" 
 			:class="{ 'text-new': isNew, 'text-crossed': isCompleted }"
 		></todo-input>
+
 		<todo-remove 
 			v-if="!isNew" 
 			v-show="showRemove" 
@@ -51,7 +53,7 @@ export default {
 	data() {
 		return {
 			isCompleted: this.completed,
-			showRemove: false,
+			showRemove: this.$isMobile(),
 		}
 	},
 	methods: {
@@ -59,6 +61,12 @@ export default {
 			this.isCompleted = isActive
 			this.$emit('statusChanged', {id: this.id, completed: isActive})
 		},
+
+		toggleShowRemove() {
+			if (!this.$isMobile()) {
+				this.showRemove = !this.showRemove
+			}
+		}
 	}
 }
 </script>
@@ -98,5 +106,16 @@ export default {
 
 	.dark div.todo-item span.text {
 		color: var(--light-grey-blue);
+	}
+
+	@media (max-width: 767px) {
+		div.todo-item {
+			gap: 10px;
+			padding: 14px 22px;
+		}
+
+		div.todo-item.item-new {
+			margin-bottom: 15px;
+		}
 	}
 </style>

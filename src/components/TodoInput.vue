@@ -63,4 +63,11 @@ export default {
 	.dark input[type=text].text-crossed::placeholder {
 		color: var(--dark-blue);
 	}
+
+	@media (max-width: 767px) {
+		input[type=text] {
+			font-size: 11px;
+			margin-top: 2px;
+		}
+	}
 </style>

@@ -2,7 +2,7 @@
 	<div class="todo-list">
 		<div class="todo-header">
 			<h1>{{ title }}</h1>
-			
+						
 			<div class="theme-icon">
 				<img @click="toggleTheme" :src="iconSource">
 			</div>
@@ -31,6 +31,8 @@
 
 			<todo-footer :count="countItems()" @clearCompleted="clearCompleted"></todo-footer>
 		</div>
+
+		<todo-footer v-if="$isMobile()" :count="countItems()" @clearCompleted="clearCompleted" detached></todo-footer>
 	</div>
 </template>
 
@@ -177,13 +179,23 @@ export default {
 		display: flex;
 		flex-direction: column;
 	}
+	
+	div.todo-header {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 41px;
+	}
 
-	div.todo-list h1 {
+	div.todo-header h1 {
 		letter-spacing: 19px;
 		color: white;
 		font-size: revert;
 		font-weight: revert;
-		margin-bottom: 41px;
+	}
+
+	div.todo-header .theme-icon img {
+		height: 27px;
+		cursor: pointer;
 	}
 
 	div.todo-list .no-items {
@@ -195,16 +207,6 @@ export default {
 		color: var(--grey);
 		text-align: center;
 		border-radius: 6px 6px 0 0;
-	}
-
-	div.todo-header {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	div.todo-header .theme-icon img {
-		height: 27px;
-		cursor: pointer;
 	}
 
 	.item-list-move {
@@ -219,5 +221,29 @@ export default {
 		background-color: var(--darkest-blue);
 		color: var(--light-grey-blue);
 		border-bottom: 1px solid var(--dark-blue);
+	}
+
+	@media (max-width: 767px) {
+		div.todo-list {
+			width: 86%;
+			margin: 49px 0;
+		}
+
+		div.todo-header {
+			margin-bottom: 33px;
+		}
+
+		div.todo-header h1 {
+			letter-spacing: 10px;
+			font-size: 26px;
+		}
+
+		div.todo-header .theme-icon img {
+			height: 20px;
+		}
+
+		div.todo-list .no-items {
+			padding: 16px;
+		}
 	}
 </style>

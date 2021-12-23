@@ -25,6 +25,7 @@ export default {
 		color: var(--grey);
 		cursor: pointer;
 		transition: color 0.25s ease;
+		padding: 0;
 	}
 
 	button:last-of-type {
@@ -40,10 +41,16 @@ export default {
 	}
 
 	.dark button:not(.active) {
-		color: var(--dark-grey-blue);
+		color: var(--dark-blue);
 	}
 
 	.dark button:not(.active):hover {
 		color: white;
+	}
+
+	@media (max-width: 767px) {
+		button {
+			font-size: 11px;
+		}
 	}
 </style>

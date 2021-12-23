@@ -1,8 +1,8 @@
 <template>
-	<div class="todo-footer">
-		<span>{{ count }} item{{ $parent.countItems() != 1 ? 's' : '' }} left</span>
+	<div class="todo-footer" :class="{detached: detached}">
+		<span v-if="!detached">{{ count }} item{{ $parent.countItems() != 1 ? 's' : '' }} left</span>
 
-		<div>
+		<div v-if="!$isMobile() || detached">
 			<todo-button 
 				:key="index" 
 				v-for="(button, index) in buttons"
@@ -13,7 +13,7 @@
 			</todo-button>
 		</div>
 
-		<todo-button @click="$emit('clearCompleted')">Clear Completed</todo-button>
+		<todo-button v-if="!detached" @click="$emit('clearCompleted')">Clear Completed</todo-button>
 	</div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
 	name: 'TodoFooter',
 	props: {
 		count: Number,
+		detached: Boolean,
 	},
 	data() {
 		return {
@@ -63,8 +64,21 @@ export default {
 		border-radius: 0 0 6px 6px;
 	}
 
+	.todo-footer.detached {
+		margin-top: 15px;
+		border-radius: 6px;
+		justify-content: center;
+	}
+
 	.dark .todo-footer {
 		background: var(--darkest-blue);
-		color: var(--dark-grey-blue);
+		color: var(--dark-blue);
+	}
+
+	@media (max-width: 767px) {
+		.todo-footer {
+			font-size: 11px;
+			padding: 18px 22px;
+		}
 	}
 </style>

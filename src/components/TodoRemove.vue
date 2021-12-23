@@ -34,4 +34,13 @@ export default {
 	.fade-leave-to {
 		opacity: 0;
 	}
+
+	@media (max-width: 767px) {
+		.remove-icon {
+			width: 11px;
+			height: 11px;
+			min-width: 11px;
+			min-height: 11px;
+		}
+	}
 </style>
