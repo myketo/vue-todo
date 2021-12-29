@@ -73,12 +73,13 @@ export default {
 
 <style>
 	div.todo-item {
-		background: white;
+		background-color: white;
 		padding: 20px;
 		display: inline-flex;
 		gap: 20px;
 		align-items: center;
 		border-bottom: 1px solid var(--light-grey);
+		cursor: grab;
 	}
 
 	div.todo-item:first-of-type {

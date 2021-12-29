@@ -47,6 +47,10 @@ export default {
 		outline-width: 0;
 	}
 
+	input[type=text]:not(.text-new) {
+		cursor: grab;
+	}
+
 	input[type=text].text-crossed,
 	input[type=text].text-crossed::placeholder {
 		text-decoration: line-through;
